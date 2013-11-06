@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.github.thomasfischl.minipascal/src-gen" editDirectory="/com.github.thomasfischl.minipascal.edit/src"
+    editorDirectory="/com.github.thomasfischl.minipascal.editor/src" modelPluginID="com.github.thomasfischl.minipascal"
+    forceOverwrite="true" modelName="Pascal" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="com.github.thomasfischl.minipascal.edit"
+    editorPluginID="com.github.thomasfischl.minipascal.editor" runtimeVersion="2.9">
+  <genPackages prefix="Pascal" basePackage="com.github.thomasfischl.minipascal" disposableProviderFactory="true"
+      fileExtensions="minipas" ecorePackage="Pascal.ecore#/">
+    <genClasses ecoreClass="Pascal.ecore#//Model">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pascal.ecore#//Model/program"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//Model/vardecls"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//Model/statseq"/>
+    </genClasses>
+    <genClasses ecoreClass="Pascal.ecore#//VarDecl">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//VarDecl/vars"/>
+    </genClasses>
+    <genClasses ecoreClass="Pascal.ecore#//VarName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pascal.ecore#//VarName/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Pascal.ecore#//StatSeq">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//StatSeq/stats"/>
+    </genClasses>
+    <genClasses ecoreClass="Pascal.ecore#//Stat">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pascal.ecore#//Stat/leftside"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//Stat/expr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pascal.ecore#//Stat/read"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//Stat/write"/>
+    </genClasses>
+    <genClasses ecoreClass="Pascal.ecore#//Expr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//Expr/term"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//Expr/terms"/>
+    </genClasses>
+    <genClasses ecoreClass="Pascal.ecore#//ExprExt">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pascal.ecore#//ExprExt/opt"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//ExprExt/term"/>
+    </genClasses>
+    <genClasses ecoreClass="Pascal.ecore#//Term">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//Term/fact"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//Term/facts"/>
+    </genClasses>
+    <genClasses ecoreClass="Pascal.ecore#//TermExt">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pascal.ecore#//TermExt/opt"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//TermExt/fact"/>
+    </genClasses>
+    <genClasses ecoreClass="Pascal.ecore#//Fact">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pascal.ecore#//Fact/var"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pascal.ecore#//Fact/number"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pascal.ecore#//Fact/expr"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

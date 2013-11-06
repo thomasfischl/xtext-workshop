@@ -4,3 +4,11 @@
 *.jar
 *.war
 *.ear
+
+# Folder #
+**/.metadata/**
+**/src-gen/**
+**/xtexd-gen/**
+**/bin/**
+
+
