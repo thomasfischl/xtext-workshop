@@ -22,7 +22,7 @@ Require-Bundle: com.github.thomasfischl.minipascal;visibility:=reexport,
  org.eclipse.xpand
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.github.thomasfischl.minipascal.ui.quickfix,
  com.github.thomasfischl.minipascal.ui.contentassist,
  com.github.thomasfischl.minipascal.ui.contentassist.antlr,

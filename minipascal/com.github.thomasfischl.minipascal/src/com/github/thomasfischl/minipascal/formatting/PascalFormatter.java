@@ -12,11 +12,9 @@ import com.google.inject.Inject;
 /**
  * This class contains custom formatting description.
  * 
- * see : http://www.eclipse.org/Xtext/documentation.html#formatting on how and
- * when to use it
+ * see : http://www.eclipse.org/Xtext/documentation.html#formatting on how and when to use it
  * 
- * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an
- * example
+ * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an example
  */
 public class PascalFormatter extends AbstractDeclarativeFormatter {
 
@@ -27,13 +25,13 @@ public class PascalFormatter extends AbstractDeclarativeFormatter {
   protected void configureFormatting(FormattingConfig c) {
     c.setAutoLinewrap(120);
 
+    c.setLinewrap().before(grammarAccess.getModelAccess().getBEGINKeyword_4());
     c.setLinewrap().after(grammarAccess.getModelAccess().getBEGINKeyword_4());
     c.setLinewrap().before(grammarAccess.getModelAccess().getENDKeyword_6());
 
     c.setLinewrap().before(grammarAccess.getVarDeclRule());
     c.setLinewrap().after(grammarAccess.getVarDeclRule());
     c.setLinewrap().after(grammarAccess.getVarDeclAccess().getVARKeyword_0());
-    c.setLinewrap().after(grammarAccess.getStatSeqAccess().getSemicolonKeyword_1_0());
 
     c.setIndentationIncrement().after(grammarAccess.getVarDeclAccess().getVARKeyword_0());
     c.setIndentationIncrement().after(grammarAccess.getModelAccess().getBEGINKeyword_4());
