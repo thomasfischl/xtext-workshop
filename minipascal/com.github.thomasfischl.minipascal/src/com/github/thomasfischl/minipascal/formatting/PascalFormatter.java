@@ -32,6 +32,7 @@ public class PascalFormatter extends AbstractDeclarativeFormatter {
     c.setLinewrap().before(grammarAccess.getVarDeclRule());
     c.setLinewrap().after(grammarAccess.getVarDeclRule());
     c.setLinewrap().after(grammarAccess.getVarDeclAccess().getVARKeyword_0());
+    c.setLinewrap().after(grammarAccess.getStatSeqAccess().getSemicolonKeyword_1_0());
 
     c.setIndentationIncrement().after(grammarAccess.getVarDeclAccess().getVARKeyword_0());
     c.setIndentationIncrement().after(grammarAccess.getModelAccess().getBEGINKeyword_4());
