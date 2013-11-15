@@ -3,15 +3,17 @@
  */
 package com.github.thomasfischl.minipascal.validation;
 
-import org.eclipse.emf.ecore.EObject;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 
 import com.github.thomasfischl.minipascal.pascal.Fact;
 import com.github.thomasfischl.minipascal.pascal.PascalPackage;
 import com.github.thomasfischl.minipascal.pascal.Stat;
+import com.github.thomasfischl.minipascal.pascal.VarDecl;
 import com.github.thomasfischl.minipascal.pascal.VarName;
-import com.github.thomasfischl.minipascal.pascal.impl.ModelImpl;
 import com.github.thomasfischl.minipascal.util.ModelUtil;
 
 /**
@@ -23,10 +25,12 @@ public class PascalJavaValidator extends com.github.thomasfischl.minipascal.vali
 
   public final static String UNDECLARED_VARIABLE = "UNDECLARED_VARIABLE";
 
+  public final static String REMOVE_VARIABLE = "REMOVE_VARIABLE";
+
   @Check
   public void checkVariableName(Fact fact) {
     if (fact.getVar() != null) {
-      VarName varDecl = getVarDecl(fact.getVar(), fact);
+      VarName varDecl = ModelUtil.getVarName(fact.getVar(), fact);
       if (varDecl == null) {
         error("The variable is not declared.", PascalPackage.Literals.FACT__VAR,
             ValidationMessageAcceptor.INSIGNIFICANT_INDEX, UNDECLARED_VARIABLE, fact.getVar());
@@ -37,7 +41,7 @@ public class PascalJavaValidator extends com.github.thomasfischl.minipascal.vali
   @Check
   public void checkStat(Stat stat) {
     if (stat.getLeftside() != null) {
-      VarName varDecl = getVarDecl(stat.getLeftside(), stat);
+      VarName varDecl = ModelUtil.getVarName(stat.getLeftside(), stat);
       if (varDecl == null) {
         error("The variable is not declared.", PascalPackage.Literals.STAT__LEFTSIDE,
             ValidationMessageAcceptor.INSIGNIFICANT_INDEX, UNDECLARED_VARIABLE, stat.getLeftside());
@@ -45,23 +49,36 @@ public class PascalJavaValidator extends com.github.thomasfischl.minipascal.vali
     }
 
     if (stat.getRead() != null) {
-      VarName varDecl = getVarDecl(stat.getRead(), stat);
+      VarName varDecl = ModelUtil.getVarName(stat.getRead(), stat);
       if (varDecl == null) {
         error("The variable is not declared.", PascalPackage.Literals.STAT__READ,
             ValidationMessageAcceptor.INSIGNIFICANT_INDEX, UNDECLARED_VARIABLE, stat.getRead());
       }
     }
-
   }
 
-  private VarName getVarDecl(String name, EObject obj) {
-    ModelImpl modelImpl = ModelUtil.getModelImpl(obj);
-    for (VarName var : modelImpl.getVardecls().getVars()) {
-      if (name.equals(var.getName())) {
-        return var;
+  @Check
+  public void checkUnusedVariable(VarDecl varDecl) {
+    Set<String> usedVars = ModelUtil.getAllUsedVariable(varDecl);
+    for (VarName var : varDecl.getVars()) {
+      if (!usedVars.contains(var.getName())) {
+        String msg = String.format("The variable '%s' is not in use.", var.getName());
+        warning(msg, var, PascalPackage.Literals.VAR_NAME__NAME, REMOVE_VARIABLE, var.getName());
       }
     }
-    return null;
+  }
+
+  @Check
+  public void checkDoubleVariableDeclaration(VarDecl varDecl) {
+    Set<String> varNames = new HashSet<String>();
+    for (VarName var : varDecl.getVars()) {
+      if (varNames.contains(var.getName())) {
+        String msg = String.format("The variable '%s' is already declared.", var.getName());
+        error(msg, var, PascalPackage.Literals.VAR_NAME__NAME, REMOVE_VARIABLE, var.getName());
+      } else {
+        varNames.add(var.getName());
+      }
+    }
   }
 
 }
