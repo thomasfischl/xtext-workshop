@@ -3,10 +3,16 @@
  */
 package com.github.thomasfischl.minipascal.validation;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 
+import com.github.thomasfischl.minipascal.pascal.Fact;
 import com.github.thomasfischl.minipascal.pascal.PascalPackage;
+import com.github.thomasfischl.minipascal.pascal.Stat;
 import com.github.thomasfischl.minipascal.pascal.VarName;
+import com.github.thomasfischl.minipascal.pascal.impl.ModelImpl;
+import com.github.thomasfischl.minipascal.util.ModelUtil;
 
 /**
  * Custom validation rules.
@@ -15,11 +21,47 @@ import com.github.thomasfischl.minipascal.pascal.VarName;
  */
 public class PascalJavaValidator extends com.github.thomasfischl.minipascal.validation.AbstractPascalJavaValidator {
 
-  // @Check
-  // public void checkGreetingStartsWithCapital(VarName name) {
-  // if (!name.getName().equals(name.getName().toLowerCase())) {
-  // error("Name should start with a capital",
-  // PascalPackage.Literals.VAR_NAME__NAME);
-  // }
-  // }
+  public final static String UNDECLARED_VARIABLE = "UNDECLARED_VARIABLE";
+
+  @Check
+  public void checkVariableName(Fact fact) {
+    if (fact.getVar() != null) {
+      VarName varDecl = getVarDecl(fact.getVar(), fact);
+      if (varDecl == null) {
+        error("The variable is not declared.", PascalPackage.Literals.FACT__VAR,
+            ValidationMessageAcceptor.INSIGNIFICANT_INDEX, UNDECLARED_VARIABLE, fact.getVar());
+      }
+    }
+  }
+
+  @Check
+  public void checkStat(Stat stat) {
+    if (stat.getLeftside() != null) {
+      VarName varDecl = getVarDecl(stat.getLeftside(), stat);
+      if (varDecl == null) {
+        error("The variable is not declared.", PascalPackage.Literals.STAT__LEFTSIDE,
+            ValidationMessageAcceptor.INSIGNIFICANT_INDEX, UNDECLARED_VARIABLE, stat.getLeftside());
+      }
+    }
+
+    if (stat.getRead() != null) {
+      VarName varDecl = getVarDecl(stat.getRead(), stat);
+      if (varDecl == null) {
+        error("The variable is not declared.", PascalPackage.Literals.STAT__READ,
+            ValidationMessageAcceptor.INSIGNIFICANT_INDEX, UNDECLARED_VARIABLE, stat.getRead());
+      }
+    }
+
+  }
+
+  private VarName getVarDecl(String name, EObject obj) {
+    ModelImpl modelImpl = ModelUtil.getModelImpl(obj);
+    for (VarName var : modelImpl.getVardecls().getVars()) {
+      if (name.equals(var.getName())) {
+        return var;
+      }
+    }
+    return null;
+  }
+
 }

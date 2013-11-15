@@ -31,5 +31,6 @@ Export-Package: com.github.thomasfischl.minipascal,
  com.github.thomasfischl.minipascal.validation,
  com.github.thomasfischl.minipascal.scoping,
  com.github.thomasfischl.minipascal.generator,
+ com.github.thomasfischl.minipascal.util,
  com.github.thomasfischl.minipascal.formatting
 
