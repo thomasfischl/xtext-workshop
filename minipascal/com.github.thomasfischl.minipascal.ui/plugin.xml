@@ -392,5 +392,19 @@
             extensions="minipas">
     </provider>
   </extension>
+  <extension
+        point="org.eclipse.ui.newWizards">
+     <category
+           id="com.github.thomasfischl.minipascal.ui"
+           name="Mini Pascal">
+     </category>
+     <wizard
+           category="com.github.thomasfischl.minipascal.ui"
+           class="com.github.thomasfischl.minipascal.ui.wizards.MiniPasNewWizard"
+           icon="icons/cookie.png"
+           id="com.github.thomasfischl.minipascal.ui.wizards.MiniPasNewWizard"
+           name="Mini Pascal File">
+     </wizard>
+  </extension>
 
 </plugin>
