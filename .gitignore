@@ -9,7 +9,7 @@
 # Folder #
 **/.metadata/**
 **/src-gen/**
-**/xtexd-gen/**
+**/xtend-gen/**
 **/bin/**
 **/runtime-EclipseApplication/**
 
