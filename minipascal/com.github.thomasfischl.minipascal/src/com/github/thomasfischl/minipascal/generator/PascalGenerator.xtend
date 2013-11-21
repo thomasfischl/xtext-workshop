@@ -36,7 +36,9 @@ class PascalGenerator implements IGenerator {
 		public class «model.program» {
 			public static void main(String[] args) throws IOException {
 				
-				try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+				BufferedReader reader = null;
+				try  {
+					reader = new BufferedReader(new InputStreamReader(System.in));
 					«IF model?.vardecls != null»
 						«FOR vardecl : model?.vardecls?.vars»
 							«vardecl.compile»
@@ -46,6 +48,10 @@ class PascalGenerator implements IGenerator {
 					«FOR stat : model.statseq?.stats»
 						«stat.compile»
 					«ENDFOR»
+				} finally {
+					if(reader != null) {
+						reader.close();
+					}
 				}
 			}
 		}
